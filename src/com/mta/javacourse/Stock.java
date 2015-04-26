@@ -7,10 +7,17 @@ import java.text.SimpleDateFormat;
 
 public class Stock {
 	
+	public final static int BUY = 0;
+	public final static int SELL = 1;
+	public final static int REMOVE = 2;
+	public final static int HOLD = 3;
+	
 	private String symbol;
 	private float ask;
 	private float bid;
 	private Date date;
+	private int recommendation;
+	private int stockQuantity;
 	
 	DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
 	
