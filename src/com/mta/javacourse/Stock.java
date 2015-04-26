@@ -7,10 +7,10 @@ import java.text.SimpleDateFormat;
 
 public class Stock {
 	
-	public final static int BUY = 0;
-	public final static int SELL = 1;
-	public final static int REMOVE = 2;
-	public final static int HOLD = 3;
+	private final static int BUY = 0;
+	private final static int SELL = 1;
+	private final static int REMOVE = 2;
+	private final static int HOLD = 3;
 	
 	private String symbol;
 	private float ask;
@@ -58,5 +58,21 @@ public class Stock {
 		String dateStr = dateFt.format(date);
 		String result = new String("<b>Stock symbol is: </b>" +getSymbol()+" <b>ask: </b>"+getAsk() +" <b>Bid: </b>"+getBid()+" <b>Date: </b>"+ dateStr);
 		return result;
+	}
+
+	public int getRecommendation() {
+		return recommendation;
+	}
+
+	public void setRecommendation(int recommendation) {
+		this.recommendation = recommendation;
+	}
+
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
+
+	public void setStockQuantity(int stockQuantity) {
+		this.stockQuantity = stockQuantity;
 	}
 }

@@ -9,7 +9,7 @@ import com.mta.javacourse.model.Portfolio;
 public class PortfolioManager {
 
 	public Portfolio getPortfolio(){
-		Portfolio portfolio = new Portfolio("portfolio");
+		Portfolio portfolio = new Portfolio();
 		
 		Calendar cal = Calendar.getInstance(); 
 		cal.set(2014, 10, 15);

@@ -11,7 +11,7 @@ import com.mta.javacourse.Stock;
 
 public class Portfolio {
 	
-	public final static int MAX_PORTFOLIO_SIZE = 5;
+	private final static int MAX_PORTFOLIO_SIZE = 5;
 
 	private String title;
 	private int portfolioSize;
@@ -27,20 +27,24 @@ public class Portfolio {
 	 * @see com.mta.javacourse
 	 */
 	
-	public Portfolio(String title) {
-		this.title = title;
+	public Portfolio() {
+		this.title = "portfolio";
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.portfolioSize = 0;
 		
 	}
 	public void addStock(Stock stock){
 		
-		if(portfolioSize< MAX_PORTFOLIO_SIZE)
+		if(portfolioSize< MAX_PORTFOLIO_SIZE && stock != null)
 		{
 			stocks[this.portfolioSize] = stock;
 			portfolioSize++;
+			
 		}
-	}
+			else{
+				System.out.println("Sorry, portfolio is full or stock is null");
+			}
+		}
 
 	public Stock[] getStocks(){
 		return stocks;
@@ -70,10 +74,11 @@ public class Portfolio {
 	 */
 	public String getHtmlString(){
 		String htmlResString = new String();
-		htmlResString = htmlResString+"<h1>"+this.title+"</h1> <br>";
+		htmlResString = htmlResString+"<h1>"+getTitle()+"</h1> <br>";
 		
 		for(int i=0; i<portfolioSize;i++)
 		{
+			
 			htmlResString = htmlResString + stocks[i].getHtmlDescription()+"<br>";
 		}
 		
