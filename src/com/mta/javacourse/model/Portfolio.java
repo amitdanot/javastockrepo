@@ -1,6 +1,6 @@
 package com.mta.javacourse.model;
 
-import com.mta.javacourse.Stock;
+
 /**
  * This class represents a Portfolio of Stocks.
  * where the maximum of stocks in the Portfolio is 5.
@@ -24,15 +24,34 @@ public class Portfolio {
 	 * Set the Portfolio Size to start as 0.
 	 * @param title
 	 * 		  the title of the Portfolio
-	 * @see com.mta.javacourse
+	 * @see com.mta.javacourse.model
 	 */
 	
-	public Portfolio() {
-		this.title = "portfolio";
+	public Portfolio(String name) {
+		this.title = name;
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.portfolioSize = 0;
 		
 	}
+	/**
+	 * Copy c'tor of portfolio type
+	 * copy an array of stocks from one to the empty one
+	 * @param portfolio
+	 */
+
+	public Portfolio(Portfolio oldPortfolio) {
+		this(oldPortfolio.getTitle());
+		this.portfolioSize =oldPortfolio.getPortfolioSize();
+		
+		for (int i=0; i<portfolioSize; i++){
+			this.stocks[i] = new Stock(oldPortfolio.getStocks()[i]);
+			}
+		}
+	/**
+	 * Add stock to portfolio array 
+	 * 
+	 * @param stock
+	 */
 	public void addStock(Stock stock){
 		
 		if(portfolioSize< MAX_PORTFOLIO_SIZE && stock != null)
@@ -45,7 +64,25 @@ public class Portfolio {
 				System.out.println("Sorry, portfolio is full or stock is null");
 			}
 		}
-
+	/**
+	 * remove stocks from protfolio , by comparison the symbol of the stock
+	 * @param stock
+	 */
+    public void removeStock(String stockSymbol) 
+    {
+            for(int i = 0; i < portfolioSize; i++)
+            {
+                    if(this.stocks[i].getSymbol().equals(stockSymbol))
+                   {
+                            if(i != portfolioSize-1 && portfolioSize > 1)
+                                   for(int j = i; j < portfolioSize-1; j++)
+                                    {
+                                           this.stocks[j] = new Stock(this.stocks[j+1]);
+                                    }
+                    }
+            }
+            portfolioSize--;
+    }
 	public Stock[] getStocks(){
 		return stocks;
 	}

@@ -1,10 +1,20 @@
-package com.mta.javacourse;
+package com.mta.javacourse.model;
 
 import java.util.Date;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+@SuppressWarnings("unused")
+/**
+ * this class represents a Stock of Stocks
+ * @param symbol
+ * @param bid - for buy
+ * @param ask - for sell
+ * @param date 
+ * @param recommendation 
+ * @param stockQuantity - number of stocks with the same type
+ * @author Amit
+ *
+ */
 public class Stock {
 	
 	private final static int BUY = 0;
@@ -21,14 +31,35 @@ public class Stock {
 	
 	DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
 	
+	/**
+	 * C'tor of stock
+	 * 
+	 * @param symbol - name of stock
+	 * @param ask - ask value
+	 * @param bid - bid value
+	 * @param date - create date of the stock
+	 * recommendation and stockQuantity are set to default of 0 until we use them
+	 * @author Amit
+	 */
 	public Stock(String symbol, float ask, float bid, Date date) {
 		this.symbol = symbol;
 		this.ask = ask;
 		this.bid = bid;
 		this.date = date;
-		
+		this.recommendation = 0;
+		this.stockQuantity = 0;
 	}
+	/**
+	 * copy c'tor of stock
+	 * @param stock1
+	 */
 	
+	public Stock(Stock stock1) {
+		this(stock1.getSymbol(),stock1.getAsk(),stock1.getBid(),new Date(stock1.getDate().getTime()));
+		this.recommendation = stock1.getRecommendation();
+		this.stockQuantity = stock1.getStockQuantity();
+	}
+
 	public String getSymbol() {
 		return symbol;
 	}
@@ -54,11 +85,6 @@ public class Stock {
 		this.date = date;
 	}
 	
-	public String getHtmlDescription(){
-		String dateStr = dateFt.format(date);
-		String result = new String("<b>Stock symbol is: </b>" +getSymbol()+" <b>ask: </b>"+getAsk() +" <b>Bid: </b>"+getBid()+" <b>Date: </b>"+ dateStr);
-		return result;
-	}
 
 	public int getRecommendation() {
 		return recommendation;
@@ -74,5 +100,15 @@ public class Stock {
 
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
+	}
+	/**
+	 * Method uses the stock's details (bid,date,ask,symbol)
+	 * @return string of each stock with his details in HTML code
+	 */
+	
+	public String getHtmlDescription(){
+		String dateStr = dateFt.format(date);
+		String result = new String("<b>Stock symbol is: </b>" +getSymbol()+" <b>ask: </b>"+getAsk() +" <b>Bid: </b>"+getBid()+" <b>Date: </b>"+ dateStr);
+		return result;
 	}
 }
