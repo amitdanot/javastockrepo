@@ -8,7 +8,7 @@ package com.mta.javacourse.model;
  * @author AmitDanot
  * @since 26/4/2015
  */
-
+// amit test
 public class Portfolio {
 	
 	private final static int MAX_PORTFOLIO_SIZE = 5;
