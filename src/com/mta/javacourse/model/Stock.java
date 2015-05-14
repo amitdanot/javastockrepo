@@ -14,7 +14,7 @@ import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
  * @param date 
  * @param recommendation 
  * @param stockQuantity - number of stocks with the same type
- * @author Amit
+ * @author Amit Danot
  *
  */
 public class Stock {

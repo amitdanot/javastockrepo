@@ -5,10 +5,10 @@ package com.mta.javacourse.model;
  * This class represents a Portfolio of Stocks.
  * where the maximum of stocks in the Portfolio is 5.
  * 
- * @author AmitDanot
+ * @author AmitDanot.
  * @since 26/4/2015
  */
-// amit test
+
 public class Portfolio {
 	
 	private final static int MAX_PORTFOLIO_SIZE = 5;
@@ -298,7 +298,7 @@ public class Portfolio {
 	public void setPortfolioSize(int portfolioSize) {
 		this.portfolioSize = portfolioSize;
 	}
-	public static int getMaxPortfolioSize() { ////// לגללל איןןן! 
+	public static int getMaxPortfolioSize() {  
 		return MAX_PORTFOLIO_SIZE;
 	}
 	public void setStocks(Stock[] stocks) {
