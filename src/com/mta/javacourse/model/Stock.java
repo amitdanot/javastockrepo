@@ -3,6 +3,8 @@ package com.mta.javacourse.model;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
 @SuppressWarnings("unused")
 /**
  * this class represents a Stock of Stocks
@@ -17,19 +19,13 @@ import java.text.SimpleDateFormat;
  */
 public class Stock {
 	
-	private final static int BUY = 0;
-	private final static int SELL = 1;
-	private final static int REMOVE = 2;
-	private final static int HOLD = 3;
-	
 	private String symbol;
 	private float ask;
 	private float bid;
 	private Date date;
-	private int recommendation;
+	private ALGO_RECOMMENDATION recommendation;
 	private int stockQuantity;
-	
-	DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
+	private DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
 	
 	/**
 	 * C'tor of stock
@@ -46,7 +42,7 @@ public class Stock {
 		this.ask = ask;
 		this.bid = bid;
 		this.date = date;
-		this.recommendation = 0;
+		this.recommendation = ALGO_RECOMMENDATION.HOLD; 
 		this.stockQuantity = 0;
 	}
 	/**
@@ -58,6 +54,17 @@ public class Stock {
 		this(stock1.getSymbol(),stock1.getAsk(),stock1.getBid(),new Date(stock1.getDate().getTime()));
 		this.recommendation = stock1.getRecommendation();
 		this.stockQuantity = stock1.getStockQuantity();
+	}
+	
+	/**
+	 * Method uses the stock's details (bid,date,ask,symbol)
+	 * @return string of each stock with his details in HTML code
+	 */
+	
+	public String getHtmlDescription(){
+		String dateStr = dateFt.format(date);
+		String result = new String("<b>Stock symbol is: </b>" +getSymbol()+" <b>ask: </b>"+getAsk() +" <b>Bid: </b>"+getBid()+" <b>Date: </b>"+ dateStr+" <b>Quantity: </b>"+ getStockQuantity());
+		return result;
 	}
 
 	public String getSymbol() {
@@ -85,12 +92,11 @@ public class Stock {
 		this.date = date;
 	}
 	
-
-	public int getRecommendation() {
+	public ALGO_RECOMMENDATION getRecommendation() {
 		return recommendation;
 	}
 
-	public void setRecommendation(int recommendation) {
+	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
 		this.recommendation = recommendation;
 	}
 
@@ -100,15 +106,5 @@ public class Stock {
 
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
-	}
-	/**
-	 * Method uses the stock's details (bid,date,ask,symbol)
-	 * @return string of each stock with his details in HTML code
-	 */
-	
-	public String getHtmlDescription(){
-		String dateStr = dateFt.format(date);
-		String result = new String("<b>Stock symbol is: </b>" +getSymbol()+" <b>ask: </b>"+getAsk() +" <b>Bid: </b>"+getBid()+" <b>Date: </b>"+ dateStr);
-		return result;
 	}
 }
