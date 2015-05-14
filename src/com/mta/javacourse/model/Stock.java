@@ -19,6 +19,8 @@ import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
  */
 public class Stock {
 	
+	//dfaf
+	
 	private String symbol;
 	private float ask;
 	private float bid;
