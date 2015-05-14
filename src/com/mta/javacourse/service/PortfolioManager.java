@@ -7,7 +7,7 @@ import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
 /**
  * This class represents a manager for a single portfolio 
- * @author Amit
+ * @author Amit Danot
  *
  */
 public class PortfolioManager {
