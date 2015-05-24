@@ -1,8 +1,11 @@
+
 package com.mta.javacourse.model;
 
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import org.algo.model.StockInterface;
 
 import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
 @SuppressWarnings("unused")
@@ -17,9 +20,7 @@ import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
  * @author Amit Danot
  *
  */
-public class Stock {
-	
-	//dfaf
+public class Stock implements StockInterface{
 	
 	private String symbol;
 	private float ask;
@@ -29,6 +30,15 @@ public class Stock {
 	private int stockQuantity;
 	private DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
 	
+	
+	public Stock (){
+		this.symbol = new String();
+		this.bid = 0;
+		this.ask = 0;
+		this.date = new Date();
+		this.recommendation = ALGO_RECOMMENDATION.HOLD;
+		this.stockQuantity = 0;				
+	}
 	/**
 	 * C'tor of stock
 	 * 
@@ -110,3 +120,5 @@ public class Stock {
 		this.stockQuantity = stockQuantity;
 	}
 }
+
+

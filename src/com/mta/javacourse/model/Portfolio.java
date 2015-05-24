@@ -1,4 +1,8 @@
+
 package com.mta.javacourse.model;
+
+import org.algo.model.PortfolioInterface;
+import org.algo.model.StockInterface;
 
 
 /**
@@ -9,7 +13,7 @@ package com.mta.javacourse.model;
  * @since 26/4/2015
  */
 
-public class Portfolio {
+public class Portfolio implements PortfolioInterface {
 	
 	private final static int MAX_PORTFOLIO_SIZE = 5;
 	
@@ -22,6 +26,18 @@ public class Portfolio {
 	private Stock[] stocks;
 	private float balance ; 
 	
+	public Portfolio() {
+		this.title = new String("title just for now");
+		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		this.portfolioSize = 0;
+		this.balance = 0;
+	}
+	public Portfolio(Stock[] stocksArray) {
+		this.title = new String("Temporary Title");
+		this.stocks = stocksArray;
+		this.portfolioSize = getPortfolioSizeMethod(stocksArray);
+		this.balance = 0;
+	}
 	/**
 	 * C'tor of Portfolio.
 	 * Receives the title of the portfolio.
@@ -251,13 +267,22 @@ public class Portfolio {
 	 * @return index of the stock in the stocks array
 	 * or return -1 if stock not found
 	 */
-	private int findStock (String stockToFind){
+	public int findStock (String stockToFind){
 		for(int i = 0; i< this.portfolioSize; i++){
 			if(stockToFind.equals(this.stocks[i].getSymbol())){
 				return i;
 			}
 		}
 		return -1;
+	}
+	public StockInterface findStockPlace (String stockToFind){
+		int i = 0;
+		for( i = 0; i< this.portfolioSize; i++){
+			if(stockToFind.equals(this.stocks[i].getSymbol())){
+				return this.stocks[i];
+			}
+		}
+		return null;
 	}
 	/**
 	 * Method receives amount and adds it to current balance
@@ -272,6 +297,20 @@ public class Portfolio {
 		else{
 			this.balance = currBalance ;
 		}
+	}
+	/**
+	 * return the logical portfolio size
+	 * @param array
+	 * @return
+	 */
+	private int getPortfolioSizeMethod(Stock[] array){
+		int i=0;
+		for (i=0; i< MAX_PORTFOLIO_SIZE ; i++){
+			if (array[i] == null){
+				return i;
+			}
+		}
+		return i;
 	}
 	
 	/**
@@ -309,3 +348,4 @@ public class Portfolio {
 	}
 
 }
+
