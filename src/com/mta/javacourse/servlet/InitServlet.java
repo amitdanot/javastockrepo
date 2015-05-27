@@ -6,6 +6,7 @@ import org.algo.service.ServiceManager;
 
 import com.mta.javacourse.service.PortfolioManager;
 
+@SuppressWarnings("serial")
 public class InitServlet extends javax.servlet.http.HttpServlet {
 	
 @Override

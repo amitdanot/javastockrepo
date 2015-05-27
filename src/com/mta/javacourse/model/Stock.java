@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import org.algo.model.StockInterface;
 
 import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
-@SuppressWarnings("unused")
 /**
  * this class represents a Stock of Stocks
  * @param symbol
@@ -28,7 +27,7 @@ public class Stock implements StockInterface{
 	private Date date;
 	private ALGO_RECOMMENDATION recommendation;
 	private int stockQuantity;
-	private DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
+	transient private DateFormat dateFt = new SimpleDateFormat("MM/dd/yyyy");
 	
 	
 	public Stock (){

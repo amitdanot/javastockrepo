@@ -23,7 +23,7 @@ public class Portfolio implements PortfolioInterface {
 	
 	private String title;
 	private int portfolioSize;
-	private Stock[] stocks;
+	private StockInterface[] stocks;
 	private float balance ; 
 	
 	public Portfolio() {
@@ -32,11 +32,18 @@ public class Portfolio implements PortfolioInterface {
 		this.portfolioSize = 0;
 		this.balance = 0;
 	}
-	public Portfolio(Stock[] stocksArray) {
-		this.title = new String("Temporary Title");
-		this.stocks = stocksArray;
-		this.portfolioSize = getPortfolioSizeMethod(stocksArray);
-		this.balance = 0;
+	
+	/**
+	 * C'tor of Portfolio.
+	 * Receives the title of the portfolio.
+	 * @param stocksArray
+	 */
+	public Portfolio(StockInterface[] stocksArray) {
+		this();
+		this.portfolioSize = stocksArray.length;
+		for(int i = 0; i<this.portfolioSize; i++){
+			this.stocks[i]= new Stock ((Stock)stocksArray[i]);;
+		}
 	}
 	/**
 	 * C'tor of Portfolio.
@@ -66,7 +73,7 @@ public class Portfolio implements PortfolioInterface {
 		this.updateBalance(oldPortfolio.getBalance()); 
 		
 		for (int i=0; i<portfolioSize; i++){
-			this.stocks[i] = new Stock(oldPortfolio.getStocks()[i]);
+			this.stocks[i] = new Stock((Stock) oldPortfolio.getStocks()[i]);
 			}
 	
 		}
@@ -92,7 +99,7 @@ public class Portfolio implements PortfolioInterface {
 		}
 		
 		stocks[this.portfolioSize] = stock;
-		stocks[this.portfolioSize].setStockQuantity(0); 
+		((Stock) stocks[this.portfolioSize]).setStockQuantity(0); 
 		this.portfolioSize++;
 		return;
 	}
@@ -145,22 +152,22 @@ public class Portfolio implements PortfolioInterface {
 		int i = this.findStock (symbol);
 		
 		if(i>-1){
-				if(stocks[i].getStockQuantity() < quantity )
+				if(((Stock) stocks[i]).getStockQuantity() < quantity )
 				{
 					System.out.println("Not enough stocks to sell");
 					return false;
 				}
 				else if (quantity == -1)
 				{
-					this.updateBalance(this.stocks[i].getStockQuantity()*this.stocks[i].getBid());
-					this.stocks[i].setStockQuantity(0);
+					this.updateBalance(((Stock) this.stocks[i]).getStockQuantity()*this.stocks[i].getBid());
+					((Stock) this.stocks[i]).setStockQuantity(0);
 					System.out.println("Entire stocks kind of ("+symbol+") - was sold succefully");
 					return true;
 				}
 				else { 
 					this.updateBalance(quantity*this.stocks[i].getBid());
-					int currQuntity = this.stocks[i].getStockQuantity();
-					this.stocks[i].setStockQuantity(currQuntity - quantity);
+					int currQuntity = ((Stock) this.stocks[i]).getStockQuantity();
+					((Stock) this.stocks[i]).setStockQuantity(currQuntity - quantity);
 					System.out.println(quantity +" stocks kind of ("+symbol+") - was sold succefully");
 					return true;
 				}
@@ -196,14 +203,14 @@ public class Portfolio implements PortfolioInterface {
 				if (quantity == -1){
 					int quantityToBuy = (int)this.balance / (int)this.stocks[i].getAsk();
 					this.updateBalance(-quantityToBuy*this.stocks[i].getAsk());
-					this.stocks[i].setStockQuantity(this.stocks[i].getStockQuantity()+quantityToBuy);
+					((Stock) this.stocks[i]).setStockQuantity(((Stock) this.stocks[i]).getStockQuantity()+quantityToBuy);
 					System.out.println("Entire stock ("+stock.getSymbol()+") holdings that could be bought "
 							+ "was bought succefully.");
 					return true;
 				}
 				else {
 					this.updateBalance(-quantity*this.stocks[i].getAsk());
-					this.stocks[i].setStockQuantity(stocks[i].getStockQuantity()+quantity);
+					((Stock) this.stocks[i]).setStockQuantity(((Stock) stocks[i]).getStockQuantity()+quantity);
 					System.out.println("An amount of "+quantity+" of stock ("+stock.getSymbol()+") was bought succefully");
 					return true;
 				}
@@ -217,14 +224,14 @@ public class Portfolio implements PortfolioInterface {
 			this.addStock(stock);
 			int quantityToBuy = (int)this.balance/(int)this.stocks[i].getAsk();
 			this.updateBalance(-(quantityToBuy*this.stocks[this.portfolioSize-1].getAsk()));
-			this.stocks[i].setStockQuantity(this.stocks[this.portfolioSize-1].getStockQuantity()+quantityToBuy);
+			((Stock) this.stocks[i]).setStockQuantity(((Stock) this.stocks[this.portfolioSize-1]).getStockQuantity()+quantityToBuy);
 			System.out.println("Entire stock ("+stock.getSymbol()+") holdings that could be bought "
 					+ "was bought succefully.");
 			return true;
 		} else {
 			this.addStock(stock); //add the stock to portfolioSize-1 in the stocks array.
 			this.updateBalance(-quantity*this.stocks[portfolioSize -1].getAsk());
-			this.stocks[this.portfolioSize -1].setStockQuantity(quantity);
+			((Stock) this.stocks[this.portfolioSize -1]).setStockQuantity(quantity);
 			System.out.println("Stock "+stock.getSymbol()+" was added successfuly to the portfolio. With quantity of "
 					+ quantity+" stocks.");
 			return true;
@@ -238,7 +245,7 @@ public class Portfolio implements PortfolioInterface {
 	public float getStocksValue(){  
 		float totalValue =0;
 		for(int i = 0; i<this.portfolioSize ;i++){
-			totalValue += this.stocks[i].getStockQuantity()*this.stocks[i].getBid();
+			totalValue += ((Stock) this.stocks[i]).getStockQuantity()*this.stocks[i].getBid();
 		}
 		return totalValue;		
 	}
@@ -254,7 +261,7 @@ public class Portfolio implements PortfolioInterface {
 		{
 			if(stocks[i] != null)
 			{
-			htmlResString = htmlResString + stocks[i].getHtmlDescription()+"<br>";
+			htmlResString = htmlResString + ((Stock) stocks[i]).getHtmlDescription()+"<br>";
 			}
 		}
 		htmlResString += "Total Portfolio Value :"+this.getTotalValue()+ "$.<br>"+
@@ -298,20 +305,7 @@ public class Portfolio implements PortfolioInterface {
 			this.balance = currBalance ;
 		}
 	}
-	/**
-	 * return the logical portfolio size
-	 * @param array
-	 * @return
-	 */
-	private int getPortfolioSizeMethod(Stock[] array){
-		int i=0;
-		for (i=0; i< MAX_PORTFOLIO_SIZE ; i++){
-			if (array[i] == null){
-				return i;
-			}
-		}
-		return i;
-	}
+
 	
 	/**
 	 * Method calculates the portfolio's total value
@@ -321,7 +315,7 @@ public class Portfolio implements PortfolioInterface {
 		
 		return this.getStocksValue()+this.balance;		
 	}
-	public Stock[] getStocks(){
+	public StockInterface[] getStocks(){
 		return stocks;
 	}
 	
