@@ -25,7 +25,14 @@ public class Portfolio implements PortfolioInterface {
 	private int portfolioSize;
 	private StockInterface[] stocks;
 	private float balance ; 
-	
+	/**
+	 * C'tor of Portfolio.
+	 * Creates an instance of an array of Stocks
+	 * Set the Portfolio Size to start as 0.
+	 * @param title
+	 * 		  the title of the Portfolio
+	 * @author Amit
+	 */
 	public Portfolio() {
 		this.title = new String("title just for now");
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
@@ -35,18 +42,27 @@ public class Portfolio implements PortfolioInterface {
 	
 	/**
 	 * C'tor of Portfolio.
-	 * Receives the title of the portfolio.
+	 * Creates an instance of an array of Stocks {@link com.shultz.model.Stock}
+	 * Set the Portfolio Size to start as 0.
+	 * @param title
+	 * 		  the title of the Portfolio
 	 * @param stocksArray
 	 */
 	public Portfolio(StockInterface[] stocksArray) {
-		this();
 		this.portfolioSize = stocksArray.length;
+		 this.title = new String("Temporary Title");
+		this.stocks = new StockInterface[MAX_PORTFOLIO_SIZE];
+		this.balance = 0;
 		for(int i = 0; i<this.portfolioSize; i++){
 			this.stocks[i]= new Stock ((Stock)stocksArray[i]);;
+			/*
+			 * this.title = new String("Temporary Title");
+		this.stocks = new StockInterface[MAX_PORTFOLIO_SIZE];
+			 */
 		}
 	}
 	/**
-	 * C'tor of Portfolio.
+	 * Copy C'tor of Portfolio.
 	 * Receives the title of the portfolio.
 	 * Creates an instance of an array of Stocks 
 	 * Set the Portfolio Size to start as 0.
@@ -57,7 +73,7 @@ public class Portfolio implements PortfolioInterface {
 	
 	public Portfolio(String name) {
 		this.title = name;
-		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		this.stocks = new StockInterface[MAX_PORTFOLIO_SIZE];
 		this.portfolioSize = 0;
 		this.balance = 0 ;
 	}
@@ -282,6 +298,7 @@ public class Portfolio implements PortfolioInterface {
 		}
 		return -1;
 	}
+	
 	public StockInterface findStockPlace (String stockToFind){
 		int i = 0;
 		for( i = 0; i< this.portfolioSize; i++){
@@ -340,6 +357,7 @@ public class Portfolio implements PortfolioInterface {
 	public float getBalance() {
 		return balance;
 	}
+	
 
 }
 
