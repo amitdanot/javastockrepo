@@ -34,7 +34,7 @@ public class Portfolio implements PortfolioInterface {
 	 * @author Amit
 	 */
 	public Portfolio() {
-		this.title = new String("title just for now");
+		this.title = new String("temp title");
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.portfolioSize = 0;
 		this.balance = 0;
@@ -42,7 +42,7 @@ public class Portfolio implements PortfolioInterface {
 	
 	/**
 	 * C'tor of Portfolio.
-	 * Creates an instance of an array of Stocks {@link com.shultz.model.Stock}
+	 * Creates an instance of an array of Stocks
 	 * Set the Portfolio Size to start as 0.
 	 * @param title
 	 * 		  the title of the Portfolio
