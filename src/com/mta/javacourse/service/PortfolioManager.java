@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mta.javacourse.exception.BalanceException;
+import com.mta.javacourse.exception.PortfolioFullException;
+import com.mta.javacourse.exception.StockAlreadyExistsException;
+import com.mta.javacourse.exception.StockNotExistException;
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
 
@@ -125,9 +129,11 @@ public class PortfolioManager implements PortfolioManagerInterface {
 
 	/**
 	 * Add stock to portfolio 
+	 * @throws StockAlreadyExistsException 
+	 * @throws PortfolioFullException 
 	 */
 	@Override
-	public void addStock(String symbol) {
+	public void addStock(String symbol) throws PortfolioFullException, StockAlreadyExistsException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
 
 		try {
@@ -275,8 +281,9 @@ public class PortfolioManager implements PortfolioManagerInterface {
 	 * A method that returns a new instance of Portfolio copied from another instance.
 	 * @param portfolio		Portfolio to copy.
 	 * @return a new Portfolio object with the same values as the one given.
+	 * @throws BalanceException 
 	 */
-	public Portfolio duplicatePortfolio(Portfolio portfolio) {
+	public Portfolio duplicatePortfolio(Portfolio portfolio) throws BalanceException {
 		Portfolio copyPortfolio = new Portfolio(portfolio);
 		return copyPortfolio;
 	}
@@ -302,9 +309,11 @@ public class PortfolioManager implements PortfolioManagerInterface {
 
 	/**
 	 * Remove stock
+	 * @throws BalanceException 
+	 * @throws StockNotExistException 
 	 */
 	@Override
-	public void removeStock(String symbol) { 
+	public void removeStock(String symbol) throws BalanceException, StockNotExistException { 
 		Portfolio portfolio = (Portfolio) getPortfolio();
 		portfolio.removeStock(symbol);
 		flush(portfolio);
@@ -312,8 +321,9 @@ public class PortfolioManager implements PortfolioManagerInterface {
 
 	/**
 	 * update portfolio balance
+	 * @throws BalanceException 
 	 */
-	public void updateBalance(float value) { 
+	public void updateBalance(float value) throws BalanceException { 
 		Portfolio portfolio = (Portfolio) getPortfolio();
 		portfolio.updateBalance(value);
 		flush(portfolio);
